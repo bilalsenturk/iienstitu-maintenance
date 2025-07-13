@@ -11,7 +11,17 @@ import {
   ChevronDown,
   Github,
   Globe,
-  Languages
+  Languages,
+  Terminal,
+  Activity,
+  Server,
+  Zap,
+  Database,
+  RefreshCw,
+  Check,
+  Info,
+  TrendingUp,
+  BarChart3
 } from 'lucide-react'
 import { translations, getTranslation, type Language } from '../translations'
 import { useParams, useRouter } from 'next/navigation'
@@ -291,6 +301,91 @@ export default function MaintenancePage() {
             </motion.div>
           </div>
         </main>
+
+        {/* System Logs Section */}
+        <motion.section
+          className="relative z-10 py-8 sm:py-12 px-4 sm:px-6 lg:px-8"
+          variants={containerVariants}
+          initial="hidden"
+          animate={isLoaded ? "visible" : "hidden"}
+        >
+          <div className="max-w-7xl mx-auto">
+            <motion.div variants={itemVariants} className="mb-8">
+              <div className="flex items-center space-x-3 mb-6">
+                <Terminal className="w-6 h-6 text-blue-400" />
+                <h2 className="text-xl sm:text-2xl font-bold text-white">{getTranslation(locale, 'systemLogs')}</h2>
+              </div>
+              <p className="text-gray-400 text-sm sm:text-base">{getTranslation(locale, 'recentActivity')}</p>
+            </motion.div>
+
+            <motion.div variants={itemVariants} className="space-y-3">
+              {[1,2,3,4,5,6,7,8,9,10].map((logNum) => {
+                const logData = getTranslation(locale, `log${logNum}` as any);
+                const getLogIcon = (type: string) => {
+                  switch(type) {
+                    case 'critical': return <AlertTriangle className="w-4 h-4 text-red-400" />;
+                    case 'maintenance': return <Wrench className="w-4 h-4 text-blue-400" />;
+                    case 'network': return <Activity className="w-4 h-4 text-purple-400" />;
+                    case 'security': return <Shield className="w-4 h-4 text-green-400" />;
+                    case 'performance': return <TrendingUp className="w-4 h-4 text-yellow-400" />;
+                    case 'backup': return <Server className="w-4 h-4 text-indigo-400" />;
+                    case 'update': return <RefreshCw className="w-4 h-4 text-cyan-400" />;
+                    case 'monitoring': return <BarChart3 className="w-4 h-4 text-orange-400" />;
+                    case 'infrastructure': return <Database className="w-4 h-4 text-pink-400" />;
+                    case 'analysis': return <Info className="w-4 h-4 text-teal-400" />;
+                    default: return <Check className="w-4 h-4 text-gray-400" />;
+                  }
+                };
+
+                const getLogTypeColor = (type: string) => {
+                  switch(type) {
+                    case 'critical': return 'border-red-500/30 bg-red-500/5';
+                    case 'maintenance': return 'border-blue-500/30 bg-blue-500/5';
+                    case 'network': return 'border-purple-500/30 bg-purple-500/5';
+                    case 'security': return 'border-green-500/30 bg-green-500/5';
+                    case 'performance': return 'border-yellow-500/30 bg-yellow-500/5';
+                    case 'backup': return 'border-indigo-500/30 bg-indigo-500/5';
+                    case 'update': return 'border-cyan-500/30 bg-cyan-500/5';
+                    case 'monitoring': return 'border-orange-500/30 bg-orange-500/5';
+                    case 'infrastructure': return 'border-pink-500/30 bg-pink-500/5';
+                    case 'analysis': return 'border-teal-500/30 bg-teal-500/5';
+                    default: return 'border-gray-500/30 bg-gray-500/5';
+                  }
+                };
+
+                return (
+                  <motion.div
+                    key={logNum}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: logNum * 0.05 }}
+                    className={`glass-effect p-4 rounded-lg border-l-4 ${getLogTypeColor(logData.type)} hover:bg-white/[0.02] transition-all duration-300`}
+                  >
+                    <div className="flex items-start space-x-3">
+                      <div className="flex-shrink-0 mt-1">
+                        {getLogIcon(logData.type)}
+                      </div>
+                      
+                      <div className="flex-1 min-w-0">
+                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
+                          <p className="text-white text-sm sm:text-base font-medium">{logData.message}</p>
+                          <span className="text-xs text-gray-400 mt-1 sm:mt-0 sm:ml-4 flex-shrink-0">
+                            {logData.date}
+                          </span>
+                        </div>
+                        
+                        <div className="flex items-center space-x-2">
+                          <Server className="w-3 h-3 text-gray-500" />
+                          <span className="text-xs text-gray-500">{logData.location}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </motion.div>
+          </div>
+        </motion.section>
 
         {/* Footer */}
         <motion.footer 
