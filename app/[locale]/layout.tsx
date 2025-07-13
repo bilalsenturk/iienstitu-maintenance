@@ -23,13 +23,15 @@ export default function LocaleLayout({
   children: React.ReactNode
   params: { locale: string }
 }) {
+  const validLocale = ['tr', 'en'].includes(params.locale) ? params.locale : 'tr'
+  
   return (
-    <html lang={params.locale} className="dark">
+    <html lang={validLocale} className="dark" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.ico" />
         <meta name="theme-color" content="#000000" />
       </head>
-      <body className="min-h-screen overflow-x-hidden">
+      <body className="min-h-screen overflow-x-hidden" suppressHydrationWarning>
         {children}
       </body>
     </html>

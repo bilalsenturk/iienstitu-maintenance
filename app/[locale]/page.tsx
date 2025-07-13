@@ -36,11 +36,12 @@ interface CountdownTime {
 export default function MaintenancePage() {
   const params = useParams()
   const router = useRouter()
-  const locale = params.locale as Language
+  const locale = (params.locale as Language) || 'tr'
   
   const [timeLeft, setTimeLeft] = useState<CountdownTime>({ days: 0, hours: 0, minutes: 0, seconds: 0 })
   const [isLoaded, setIsLoaded] = useState(false)
   const [currentStep, setCurrentStep] = useState(0)
+  const [isMounted, setIsMounted] = useState(false)
 
   // Bakım bitiş tarihi (6 gün sonra - sabit tarih)
   const maintenanceEndDate = new Date('2025-07-19T23:59:59')  // 19 Temmuz 2025, 23:59
@@ -79,7 +80,12 @@ export default function MaintenancePage() {
   ]
 
   useEffect(() => {
+    setIsMounted(true)
     setIsLoaded(true)
+  }, [])
+
+  useEffect(() => {
+    if (!isMounted) return
     
     const timer = setInterval(() => {
       const now = new Date().getTime()
@@ -106,7 +112,7 @@ export default function MaintenancePage() {
       clearInterval(timer)
       clearInterval(stepTimer)
     }
-  }, [locale])
+  }, [locale, isMounted, maintenanceSteps.length])
 
   const toggleLanguage = () => {
     const newLocale = locale === 'tr' ? 'en' : 'tr'
@@ -131,6 +137,10 @@ export default function MaintenancePage() {
       opacity: 1,
       transition: { duration: 0.6, ease: "easeOut" }
     }
+  }
+
+  if (!isMounted) {
+    return null
   }
 
   return (
