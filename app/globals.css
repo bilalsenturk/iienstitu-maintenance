@@ -1,0 +1,185 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@layer base {
+  * {
+    @apply border-gray-200;
+  }
+  
+  body {
+    @apply bg-black text-white font-sans antialiased;
+    background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.03) 1px, transparent 0);
+    background-size: 20px 20px;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  .glass-effect {
+    @apply backdrop-blur-xl bg-white/5 border border-white/10;
+  }
+  
+  .premium-button {
+    @apply relative overflow-hidden bg-white text-black px-8 py-3 rounded-lg font-medium transition-all duration-300 hover:bg-gray-100 hover:scale-105 active:scale-95;
+  }
+  
+  .premium-button::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] skew-x-12 transition-transform duration-700;
+  }
+  
+  .premium-button:hover::before {
+    @apply translate-x-[100%];
+  }
+  
+  .status-indicator {
+    @apply w-3 h-3 rounded-full animate-pulse-slow;
+  }
+  
+  .grid-pattern {
+    background-image: 
+      linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent;
+  }
+  
+  .border-gradient {
+    border-image: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.3), rgba(255,255,255,0.1)) 1;
+  }
+  
+  /* Responsive Design Improvements */
+  /* Mobile First Approach */
+  .responsive-container {
+    @apply px-4 sm:px-6 lg:px-8;
+  }
+  
+  .responsive-text-lg {
+    @apply text-base sm:text-lg lg:text-xl;
+  }
+  
+  .responsive-text-xl {
+    @apply text-lg sm:text-xl lg:text-2xl;
+  }
+  
+  .responsive-text-2xl {
+    @apply text-xl sm:text-2xl lg:text-3xl;
+  }
+  
+  .responsive-text-hero {
+    @apply text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl;
+  }
+  
+  /* Countdown Grid */
+  .responsive-grid-countdown {
+    @apply grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 max-w-sm sm:max-w-xl lg:max-w-2xl mx-auto;
+  }
+  
+  .responsive-countdown-text {
+    @apply text-2xl sm:text-3xl lg:text-4xl;
+  }
+  
+  .responsive-header-padding {
+    @apply p-4 sm:p-6;
+  }
+  
+  .responsive-main-padding {
+    @apply p-4 sm:p-6 lg:p-8;
+  }
+  
+  .responsive-card-padding {
+    @apply p-4 sm:p-6 lg:p-8;
+  }
+  
+  .responsive-button-size {
+    @apply text-sm sm:text-base px-4 py-2 sm:px-6 sm:py-3;
+  }
+  
+  .responsive-icon-size {
+    @apply w-4 h-4 sm:w-5 sm:h-5;
+  }
+  
+  .responsive-logo-size {
+    @apply w-8 h-8 sm:w-10 sm:h-10;
+  }
+  
+  /* Maintenance Section */
+  .responsive-maintenance-grid {
+    @apply space-y-3 sm:space-y-4;
+  }
+  
+  .responsive-maintenance-card {
+    @apply p-3 sm:p-4 rounded-lg sm:rounded-xl;
+  }
+  
+  .responsive-step-padding {
+    @apply p-4 sm:p-6 lg:p-8;
+  }
+  
+  .responsive-flex-direction {
+    @apply flex-col sm:flex-row;
+  }
+  
+  .responsive-space-y {
+    @apply space-y-8 sm:space-y-10 lg:space-y-12;
+  }
+  
+  .responsive-max-width {
+    @apply max-w-sm sm:max-w-2xl lg:max-w-4xl;
+  }
+  
+  .responsive-footer-direction {
+    @apply flex-col space-y-4 sm:flex-row sm:space-y-0;
+  }
+}
+
+/* Device-specific adjustments */
+@media (max-width: 640px) {
+  .glass-effect {
+    @apply backdrop-blur-sm bg-white/[0.03] border border-white/[0.05];
+  }
+  
+  .premium-button {
+    @apply text-sm px-4 py-2;
+  }
+  
+  .grid-pattern {
+    background-size: 30px 30px;
+  }
+  
+  /* Reduce animation intensity on mobile */
+  .animate-spin-slow {
+    animation: spin 4s linear infinite;
+  }
+  
+  .animate-pulse-slow {
+    animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .responsive-tablet-cols {
+    @apply grid-cols-2;
+  }
+}
+
+@media (min-width: 1025px) {
+  .responsive-desktop-spacing {
+    @apply space-y-16;
+  }
+  
+  .responsive-desktop-padding {
+    @apply p-12;
+  }
+}

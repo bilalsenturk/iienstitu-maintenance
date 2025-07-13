@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teknik Çalışma Sayfası</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <div class="header-left">
+                    <i class="fas fa-tools"></i>
+                    <h1>Teknik Çalışma Merkezi</h1>
+                </div>
+                <div class="header-right">
+                    <span class="date" id="current-date"></span>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <!-- Sol Panel - Araçlar -->
+            <section class="left-panel">
+                <div class="tools-section">
+                    <h3><i class="fas fa-wrench"></i> Teknik Araçlar</h3>
+                    <div class="tool-grid">
+                        <button class="tool-btn" onclick="openCalculator()">
+                            <i class="fas fa-calculator"></i>
+                            <span>Hesap Makinesi</span>
+                        </button>
+                        <button class="tool-btn" onclick="openConverter()">
+                            <i class="fas fa-exchange-alt"></i>
+                            <span>Birim Çevirici</span>
+                        </button>
+                        <button class="tool-btn" onclick="openTimer()">
+                            <i class="fas fa-clock"></i>
+                            <span>Zamanlayıcı</span>
+                        </button>
+                        <button class="tool-btn" onclick="openNotes()">
+                            <i class="fas fa-sticky-note"></i>
+                            <span>Notlar</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="quick-references">
+                    <h3><i class="fas fa-bookmark"></i> Hızlı Referanslar</h3>
+                    <div class="reference-list">
+                        <div class="reference-item">
+                            <i class="fas fa-bolt"></i>
+                            <span>Elektrik Formülleri</span>
+                        </div>
+                        <div class="reference-item">
+                            <i class="fas fa-cog"></i>
+                            <span>Makine Hesaplamaları</span>
+                        </div>
+                        <div class="reference-item">
+                            <i class="fas fa-thermometer-half"></i>
+                            <span>Sıcaklık Tabloları</span>
+                        </div>
+                        <div class="reference-item">
+                            <i class="fas fa-ruler"></i>
+                            <span>Ölçü Birimleri</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Orta Panel - Ana Çalışma Alanı -->
+            <section class="work-area">
+                <div class="workspace-header">
+                    <h2><i class="fas fa-desktop"></i> Çalışma Alanı</h2>
+                    <div class="workspace-controls">
+                        <button class="control-btn" onclick="clearWorkspace()">
+                            <i class="fas fa-broom"></i> Temizle
+                        </button>
+                        <button class="control-btn" onclick="saveWork()">
+                            <i class="fas fa-save"></i> Kaydet
+                        </button>
+                    </div>
+                </div>
+
+                <div class="workspace-content" id="workspace">
+                    <!-- Hesap Makinesi -->
+                    <div class="tool-widget calculator-widget" id="calculator" style="display: none;">
+                        <div class="widget-header">
+                            <h4><i class="fas fa-calculator"></i> Hesap Makinesi</h4>
+                            <button class="close-btn" onclick="closeTool('calculator')">&times;</button>
+                        </div>
+                        <div class="calculator">
+                            <input type="text" id="calc-display" class="calc-display" readonly>
+                            <div class="calc-buttons">
+                                <button onclick="clearCalc()" class="calc-btn clear">C</button>
+                                <button onclick="deleteLast()" class="calc-btn">⌫</button>
+                                <button onclick="appendToCalc('/')" class="calc-btn operator">÷</button>
+                                <button onclick="appendToCalc('*')" class="calc-btn operator">×</button>
+                                
+                                <button onclick="appendToCalc('7')" class="calc-btn">7</button>
+                                <button onclick="appendToCalc('8')" class="calc-btn">8</button>
+                                <button onclick="appendToCalc('9')" class="calc-btn">9</button>
+                                <button onclick="appendToCalc('-')" class="calc-btn operator">-</button>
+                                
+                                <button onclick="appendToCalc('4')" class="calc-btn">4</button>
+                                <button onclick="appendToCalc('5')" class="calc-btn">5</button>
+                                <button onclick="appendToCalc('6')" class="calc-btn">6</button>
+                                <button onclick="appendToCalc('+')" class="calc-btn operator">+</button>
+                                
+                                <button onclick="appendToCalc('1')" class="calc-btn">1</button>
+                                <button onclick="appendToCalc('2')" class="calc-btn">2</button>
+                                <button onclick="appendToCalc('3')" class="calc-btn">3</button>
+                                <button onclick="calculate()" class="calc-btn equals" rowspan="2">=</button>
+                                
+                                <button onclick="appendToCalc('0')" class="calc-btn zero">0</button>
+                                <button onclick="appendToCalc('.')" class="calc-btn">.</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Birim Çevirici -->
+                    <div class="tool-widget converter-widget" id="converter" style="display: none;">
+                        <div class="widget-header">
+                            <h4><i class="fas fa-exchange-alt"></i> Birim Çevirici</h4>
+                            <button class="close-btn" onclick="closeTool('converter')">&times;</button>
+                        </div>
+                        <div class="converter">
+                            <div class="converter-row">
+                                <select id="unit-type" onchange="updateUnits()">
+                                    <option value="length">Uzunluk</option>
+                                    <option value="weight">Ağırlık</option>
+                                    <option value="temperature">Sıcaklık</option>
+                                    <option value="area">Alan</option>
+                                </select>
+                            </div>
+                            <div class="converter-row">
+                                <input type="number" id="from-value" placeholder="Değer" oninput="convert()">
+                                <select id="from-unit"></select>
+                            </div>
+                            <div class="converter-arrow">
+                                <i class="fas fa-arrow-down"></i>
+                            </div>
+                            <div class="converter-row">
+                                <input type="number" id="to-value" placeholder="Sonuç" readonly>
+                                <select id="to-unit" onchange="convert()"></select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Zamanlayıcı -->
+                    <div class="tool-widget timer-widget" id="timer" style="display: none;">
+                        <div class="widget-header">
+                            <h4><i class="fas fa-clock"></i> Zamanlayıcı</h4>
+                            <button class="close-btn" onclick="closeTool('timer')">&times;</button>
+                        </div>
+                        <div class="timer">
+                            <div class="timer-display" id="timer-display">00:00:00</div>
+                            <div class="timer-controls">
+                                <button class="timer-btn" onclick="startTimer()">
+                                    <i class="fas fa-play"></i> Başlat
+                                </button>
+                                <button class="timer-btn" onclick="pauseTimer()">
+                                    <i class="fas fa-pause"></i> Duraklat
+                                </button>
+                                <button class="timer-btn" onclick="resetTimer()">
+                                    <i class="fas fa-stop"></i> Sıfırla
+                                </button>
+                            </div>
+                            <div class="timer-input">
+                                <input type="number" id="timer-minutes" placeholder="Dakika" min="0" max="59">
+                                <span>:</span>
+                                <input type="number" id="timer-seconds" placeholder="Saniye" min="0" max="59">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notlar -->
+                    <div class="tool-widget notes-widget" id="notes" style="display: none;">
+                        <div class="widget-header">
+                            <h4><i class="fas fa-sticky-note"></i> Notlar</h4>
+                            <button class="close-btn" onclick="closeTool('notes')">&times;</button>
+                        </div>
+                        <div class="notes">
+                            <textarea id="notes-area" placeholder="Notlarınızı buraya yazın..."></textarea>
+                            <div class="notes-controls">
+                                <button onclick="saveNotes()">
+                                    <i class="fas fa-save"></i> Kaydet
+                                </button>
+                                <button onclick="clearNotes()">
+                                    <i class="fas fa-trash"></i> Temizle
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Başlangıç Mesajı -->
+                    <div class="welcome-message" id="welcome-message">
+                        <div class="welcome-content">
+                            <i class="fas fa-tools welcome-icon"></i>
+                            <h3>Teknik Çalışma Sayfasına Hoş Geldiniz</h3>
+                            <p>Sol panelden bir araç seçerek çalışmaya başlayın.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sağ Panel - Bilgi ve Durum -->
+            <section class="right-panel">
+                <div class="info-section">
+                    <h3><i class="fas fa-info-circle"></i> Sistem Bilgileri</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="info-label">Saat:</span>
+                            <span class="info-value" id="current-time"></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Aktif Araçlar:</span>
+                            <span class="info-value" id="active-tools">0</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Son Hesaplama:</span>
+                            <span class="info-value" id="last-calculation">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="shortcuts-section">
+                    <h3><i class="fas fa-keyboard"></i> Kısayollar</h3>
+                    <div class="shortcut-list">
+                        <div class="shortcut-item">
+                            <kbd>Ctrl</kbd> + <kbd>C</kbd>
+                            <span>Hesap Makinesi</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <kbd>Ctrl</kbd> + <kbd>U</kbd>
+                            <span>Birim Çevirici</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <kbd>Ctrl</kbd> + <kbd>T</kbd>
+                            <span>Zamanlayıcı</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <kbd>Ctrl</kbd> + <kbd>N</kbd>
+                            <span>Notlar</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="status-section">
+                    <h3><i class="fas fa-chart-line"></i> Durum</h3>
+                    <div class="status-indicators">
+                        <div class="status-item">
+                            <div class="status-dot active"></div>
+                            <span>Sistem Aktif</span>
+                        </div>
+                        <div class="status-item">
+                            <div class="status-dot" id="auto-save-status"></div>
+                            <span>Otomatik Kaydet</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
