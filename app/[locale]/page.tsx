@@ -42,9 +42,8 @@ export default function MaintenancePage() {
   const [isLoaded, setIsLoaded] = useState(false)
   const [currentStep, setCurrentStep] = useState(0)
 
-  // Bakım bitiş tarihi (5 gün sonra)
-  const maintenanceEndDate = new Date()
-  maintenanceEndDate.setDate(maintenanceEndDate.getDate() + 5)
+  // Bakım bitiş tarihi (6 gün sonra - sabit tarih)
+  const maintenanceEndDate = new Date('2025-07-19T23:59:59')  // 19 Temmuz 2025, 23:59
 
   const maintenanceSteps = [
     { 
