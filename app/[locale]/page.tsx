@@ -44,7 +44,7 @@ export default function MaintenancePage() {
   const [isMounted, setIsMounted] = useState(false)
 
   // Bakım bitiş tarihi (6 gün sonra - sabit tarih)
-  const maintenanceEndDate = new Date('2025-07-19T23:59:59')  // 19 Temmuz 2025, 23:59
+  const maintenanceEndDate = new Date('2025-07-22T23:59:59')  // 22 Temmuz 2025, 23:59
 
   const maintenanceSteps = [
     { 
