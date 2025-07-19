@@ -1,4 +1,4 @@
-'use client'
+                                'use client'
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -199,13 +199,13 @@ export default function MaintenancePage() {
                 onClick={toggleLanguage}
                 className="flex items-center space-x-1 sm:space-x-2 glass-effect px-2 py-1 sm:px-3 sm:py-2 rounded-lg hover:bg-white/10 transition-all duration-300"
               >
-                <Languages className="responsive-icon-size text-gray-300" />
-                <span className="text-xs sm:text-sm text-gray-300 uppercase">{locale}</span>
+                <Languages className="responsive-icon-size text-gray-100" />
+                <span className="text-xs sm:text-sm text-gray-100 uppercase">{locale}</span>
               </button>
               
               <div className="flex items-center space-x-1 sm:space-x-2">
                 <div className="status-indicator bg-yellow-500"></div>
-                <span className="text-xs sm:text-sm text-gray-300 hidden sm:inline">{getTranslation(locale, 'systemStatus')}</span>
+                <span className="text-xs sm:text-sm text-gray-100 hidden sm:inline">{getTranslation(locale, 'systemStatus')}</span>
               </div>
             </div>
           </div>
@@ -219,7 +219,7 @@ export default function MaintenancePage() {
             <motion.div variants={itemVariants} className="space-y-4 sm:space-y-6">
               <div className="inline-flex items-center space-x-2 sm:space-x-3 glass-effect px-4 py-2 sm:px-6 sm:py-3 rounded-full">
                 <Wrench className="responsive-icon-size text-yellow-400" />
-                <span className="text-xs sm:text-sm font-medium text-gray-300">{getTranslation(locale, 'maintenanceMode')}</span>
+                <span className="text-xs sm:text-sm font-medium text-gray-100">{getTranslation(locale, 'maintenanceMode')}</span>
               </div>
               
               <h1 className="responsive-text-hero font-bold leading-tight">
@@ -228,7 +228,7 @@ export default function MaintenancePage() {
                 <span className="text-white">{getTranslation(locale, 'serviceUnavailable')}</span>
               </h1>
               
-              <p className="responsive-text-lg text-gray-400 max-w-xs sm:max-w-2xl mx-auto leading-relaxed px-4 sm:px-0">
+              <p className="responsive-text-lg text-gray-300 max-w-xs sm:max-w-2xl mx-auto leading-relaxed px-4 sm:px-0">
                 {getTranslation(locale, 'description')}
               </p>
             </motion.div>
@@ -324,7 +324,7 @@ export default function MaintenancePage() {
                 <Terminal className="w-6 h-6 text-blue-400" />
                 <h2 className="text-xl sm:text-2xl font-bold text-white">{getTranslation(locale, 'systemLogs')}</h2>
               </div>
-              <p className="text-gray-400 text-sm sm:text-base">{getTranslation(locale, 'recentActivity')}</p>
+              <p className="text-gray-300 text-sm sm:text-base">{getTranslation(locale, 'recentActivity')}</p>
             </motion.div>
 
             <motion.div variants={itemVariants} className="space-y-3">
@@ -402,7 +402,7 @@ export default function MaintenancePage() {
           variants={itemVariants}
         >
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
-            <div className="flex items-center space-x-4 text-xs sm:text-sm text-gray-400">
+            <div className="flex items-center space-x-4 text-xs sm:text-sm text-gray-300">
               <Shield className="w-4 h-4" />
               <span>{getTranslation(locale, 'dataSecure')}</span>
               <span>•</span>
@@ -410,7 +410,7 @@ export default function MaintenancePage() {
             </div>
             
             <div className="flex items-center space-x-6">
-              <div className="flex items-center space-x-2 text-sm text-gray-400">
+              <div className="flex items-center space-x-2 text-sm text-gray-300">
                 <Clock className="w-4 h-4" />
                 <span>{getTranslation(locale, 'lastUpdate')}: {new Date().toLocaleString(locale === 'tr' ? 'tr-TR' : 'en-US')}</span>
               </div>
